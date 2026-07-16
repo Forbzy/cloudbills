@@ -1,24 +1,7 @@
-# clusters/my-cluster/monitoring/kustomization.yaml
-apiVersion: kustomize.toolkit.fluxcd.io/v1
+apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-metadata:
-  name: kube-prometheus-stack
-  namespace: flux-system
-spec:
-  interval: 10m
-  path: ./clusters/my-cluster/monitoring
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  decryption:
-    provider: sops
-    secretRef:
-      # Replace with the Secret that contains your SOPS age or OpenPGP key
-      name: sops-age
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: kube-prometheus-stack
-      namespace: monitoring
-  timeout: 5m
+
+resources:
+  - infrastructure.yaml
+  - monitoring.yaml
+  - logging.yaml
