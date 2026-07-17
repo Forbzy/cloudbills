@@ -1,9 +1,0 @@
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: kibana
-  namespace: flux-system
-
-spec:
-  interval: 1h
-  url: https://kibana.github.io/helm-charts
