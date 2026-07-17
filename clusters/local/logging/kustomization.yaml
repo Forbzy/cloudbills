@@ -5,3 +5,4 @@ resources:
 - ../../../applications/logging/helmrepository.yaml
 - ../../../applications/logging/logstash
 - ../../../applications/logging/kibana
+- ../../../applications/logging/elasticsearch
