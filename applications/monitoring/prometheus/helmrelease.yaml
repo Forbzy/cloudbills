@@ -49,6 +49,8 @@ spec:
         enabled: true
         hosts:
           - grafana.forbzyltd.com
+      service:
+        type: loadbalancer
 
     # Alertmanager configuration with Slack routing
     alertmanager:
