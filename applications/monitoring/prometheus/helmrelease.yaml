@@ -14,11 +14,6 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-  valuesFrom:
-    - kind: Secret
-      name: alertmanager-slack-webhook
-      valuesKey: slack_api_url
-      targetPath: alertmanager.config.global.slack_api_url
   values:
     # Prometheus configuration
     prometheus:
