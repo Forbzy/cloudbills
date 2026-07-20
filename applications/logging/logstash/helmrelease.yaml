@@ -15,7 +15,7 @@ spec:
         name: elastic
         namespace: flux-system
   values:
-    replicas: 2
+    replicas: 1
     resources:
       requests:
         cpu: "250m"

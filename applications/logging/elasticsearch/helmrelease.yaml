@@ -15,7 +15,7 @@ spec:
         name: elastic
         namespace: flux-system
   values:
-    replicas: 3
+    replicas: 1
     minimumMasterNodes: 2
     esJavaOpts: "-Xmx1g -Xms1g"
     resources:
