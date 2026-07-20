@@ -50,7 +50,7 @@ spec:
         hosts:
           - grafana.forbzyltd.com
       service:
-        type: loadbalancer
+        type: LoadBalancer
 
     # Alertmanager configuration with Slack routing
     alertmanager:
