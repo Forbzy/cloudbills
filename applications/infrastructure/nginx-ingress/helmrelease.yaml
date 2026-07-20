@@ -19,12 +19,10 @@ spec:
       interval: 15m
   install:
     createNamespace: true
-    atomic: true
     timeout: 10m
     remediation:
       retries: 3
   upgrade:
-    atomic: true
     timeout: 10m
     cleanupOnFail: true
     remediation:
