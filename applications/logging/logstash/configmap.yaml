@@ -24,7 +24,7 @@ data:
     }
     output {
       elasticsearch {
-        hosts => ["https://elasticsearch-master:9200"]
+        hosts => ["http://elasticsearch-master:9200"]
         user => "${ELASTICSEARCH_USERNAME}"
         password => "${ELASTICSEARCH_PASSWORD}"
         index => "logs-%{+YYYY.MM.dd}"
