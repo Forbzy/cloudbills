@@ -48,7 +48,7 @@ spec:
       ingress:
         enabled: true
         hosts:
-          - grafana.example.com
+          - grafana.forbzyltd.com
 
     # Alertmanager configuration with Slack routing
     alertmanager:
