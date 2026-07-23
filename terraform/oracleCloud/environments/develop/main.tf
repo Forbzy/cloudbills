@@ -40,4 +40,3 @@ module "loadbalancer" {
 
   tags = local.tags
 }
-#
