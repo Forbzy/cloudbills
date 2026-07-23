@@ -74,13 +74,6 @@ jobs:
           TF_VAR_compartment_ocid: ${{ secrets.OCI_COMPARTMENT_OCID }}
           TF_VAR_region: ${{ secrets.OCI_REGION }}
           TF_LOG: DEBUG
-          TF_LOG_PATH: terraform.log
-
-      - name: Upload Terraform log
-        uses: actions/upload-artifact@v4
-        with:
-          name: terraform-log
-          path: terraform.log
 
   apply:
 
@@ -131,6 +124,8 @@ jobs:
         run: terraform apply -auto-approve
         env:
           TF_VAR_compartment_ocid: ${{ secrets.OCI_COMPARTMENT_OCID }}
+          TF_VAR_region: ${{ secrets.OCI_REGION }}
+          TF_LOG: DEBUG
 
       - name: Get cluster ID
         id: cluster
