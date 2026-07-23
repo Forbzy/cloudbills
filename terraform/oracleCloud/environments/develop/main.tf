@@ -1,22 +1,3 @@
-#resource "flux_bootstrap_git" "cloudbills" {
-#  path = "clusters/local"
-#}
-
-#resource "kubernetes_namespace" "cloudbills" {
-#  metadata {
-#    name = "cloudbills"
-#  }
-#}
-
-resource "flux_bootstrap_git" "cloudbills" {
-
-  path = "clusters/oke"
-
-  depends_on = [
-    module.oke
-  ]
-}
-
 module "networking" {
 
   source = "../../modules/networking"
@@ -59,3 +40,4 @@ module "loadbalancer" {
 
   tags = local.tags
 }
+#
