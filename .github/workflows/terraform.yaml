@@ -1,0 +1,122 @@
+name: Terraform
+
+on:
+  pull_request:
+    paths:
+      - "terraform/**"
+
+  push:
+    branches:
+      - main
+    paths:
+      - "terraform/**"
+
+permissions:
+  contents: read
+
+jobs:
+
+  validate:
+
+    name: Terraform Validate
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: terraform/oracleCloud/environments/develop
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Configure OCI CLI
+        run: |
+          mkdir -p ~/.oci
+
+          echo "${{ secrets.OCI_PRIVATE_KEY }}" > ~/.oci/oci_api_key.pem
+
+          chmod 600 ~/.oci/oci_api_key.pem
+
+          cat > ~/.oci/config <<EOF
+          [DEFAULT]
+          user=${{ secrets.OCI_USER_OCID }}
+          fingerprint=${{ secrets.OCI_FINGERPRINT }}
+          tenancy=${{ secrets.OCI_TENANCY_OCID }}
+          region=${{ secrets.OCI_REGION }}
+          key_file=/home/runner/.oci/oci_api_key.pem
+          EOF
+          
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan
+        env:
+          TF_VAR_compartment_ocid: ${{ secrets.OCI_COMPARTMENT_OCID }}
+
+
+  apply:
+
+    name: Terraform Apply
+    needs: validate
+    if: github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-latest
+
+    environment: develop
+
+    outputs:
+      cluster_id: ${{ steps.cluster.outputs.cluster_id }}
+
+    defaults:
+      run:
+        working-directory: terraform/oracleCloud/environments/develop
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Configure OCI CLI
+        run: |
+          mkdir -p ~/.oci
+
+          echo "${{ secrets.OCI_PRIVATE_KEY }}" > ~/.oci/oci_api_key.pem
+
+          chmod 600 ~/.oci/oci_api_key.pem
+
+          cat > ~/.oci/config <<EOF
+          [DEFAULT]
+          user=${{ secrets.OCI_USER_OCID }}
+          fingerprint=${{ secrets.OCI_FINGERPRINT }}
+          tenancy=${{ secrets.OCI_TENANCY_OCID }}
+          region=${{ secrets.OCI_REGION }}
+          key_file=/home/runner/.oci/oci_api_key.pem
+          EOF
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        env:
+          TF_VAR_compartment_ocid: ${{ secrets.OCI_COMPARTMENT_OCID }}
+
+      - name: Get cluster ID
+        id: cluster
+        run: |
+          echo "cluster_id=$(terraform output -raw cluster_id)" >> $GITHUB_OUTPUT

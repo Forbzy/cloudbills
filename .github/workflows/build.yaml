@@ -1,0 +1,23 @@
+name: Build
+
+on:
+
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build:
+
+    - checkout
+
+    - setup java/node/go
+
+    - run tests
+
+    - docker build
+
+    - docker push ghcr.io/cloudbills/api
+
+    - update gitops manifests
