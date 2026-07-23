@@ -59,15 +59,28 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
+      - name: Check variables
+        run: |
+          echo "Compartment:"
+          echo $TF_VAR_compartment_ocid
+
+          echo "Region:"
+          echo $TF_VAR_region
+
       - name: Terraform Plan
         if: github.event_name == 'pull_request'
-        run: terraform plan
+        run: terraform plan -input=false -lock=false
         env:
           TF_VAR_compartment_ocid: ${{ secrets.OCI_COMPARTMENT_OCID }}
           TF_VAR_region: ${{ secrets.OCI_REGION }}
           TF_LOG: DEBUG
           TF_LOG_PATH: terraform.log
 
+      - name: Upload Terraform log
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-log
+          path: terraform.log
 
   apply:
 
