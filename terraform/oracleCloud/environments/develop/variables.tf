@@ -1,20 +1,3 @@
-variable "github_owner" {
-  type = string
-}
-
-variable "github_repo" {
-  type = string
-}
-
-variable "github_username" {
-  type = string
-}
-
-variable "github_token" {
-  type      = string
-  sensitive = true
-}
-
 variable "compartment_ocid" {
   description = "OCI compartment OCID"
   type        = string
