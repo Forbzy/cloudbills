@@ -19,7 +19,7 @@ module "oke" {
 
   kubernetes_version = var.kubernetes_version
 
-  subnet_id = module.networking.private_subnet_id
+  subnet_id = module.networking.public_subnet_id
 
   vcn_id = module.networking.vcn_id
 
