@@ -8,14 +8,12 @@
 #  }
 #}
 
-resource "flux_bootstrap_git" "cloudbills" {
-
-  path = "clusters/oke"
-
-  depends_on = [
-    module.oke
-  ]
-}
+#resource "flux_bootstrap_git" "cloudbills" {
+#  path = "clusters/oke"
+#  depends_on = [
+#    module.oke
+#  ]
+#}
 
 module "networking" {
 
