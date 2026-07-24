@@ -22,5 +22,4 @@ provider "kubernetes" {
 
 provider "oci" {
   config_file_profile = "DEFAULT"
-  config_file         = pathexpand("~/.oci/config")
 }
