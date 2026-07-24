@@ -66,7 +66,7 @@ resource "oci_containerengine_node_pool" "workers" {
   }
 
   node_source_details {
-    image_id                = "ocid1.image.oc1.uk-london-1.aaaaaaaadcl5uy4c46p6ona4z2lxcrbhbe7gryih5h4wda53bcupifveh5zq"
+    image_id                = "ocid1.image.oc1.uk-london-1.aaaaaaaapvjyn2rgfj4lazpozjxufnu2obvvp2rfrommlnspa35wrlnxrnyq"
     source_type             = "IMAGE"
     boot_volume_size_in_gbs = 50
   }
