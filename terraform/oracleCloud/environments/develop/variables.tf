@@ -14,7 +14,7 @@ variable "kubernetes_version" {
 variable "node_shape" {
   description = "OCI compute shape for worker nodes"
   type        = string
-  default     = "VM.Standard.E4.Flex"
+  default     = "VM.Standard.A1.Flex"
 }
 
 variable "node_count" {
