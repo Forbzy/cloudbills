@@ -25,6 +25,10 @@ data "oci_containerengine_cluster" "oke" {
   cluster_id = oci_containerengine_cluster.oke_cluster.id
 }
 
+data "oci_identity_availability_domains" "ads" {
+  compartment_id = var.compartment_ocid
+}
+
 resource "oci_containerengine_node_pool" "workers" {
 
   cluster_id = oci_containerengine_cluster.oke_cluster.id
