@@ -52,7 +52,7 @@ resource "oci_containerengine_node_pool" "workers" {
 
     placement_configs {
 
-      availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
+      availability_domain = data.oci_identity_availability_domains.ads.availability_domains[1].name
 
       subnet_id = var.private_subnet_id
     }
@@ -62,7 +62,7 @@ resource "oci_containerengine_node_pool" "workers" {
 
     ocpus = 1
 
-    memory_in_gbs = 12
+    memory_in_gbs = 6
   }
 
   node_source_details {
