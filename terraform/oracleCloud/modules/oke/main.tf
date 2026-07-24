@@ -71,3 +71,4 @@ resource "oci_containerengine_node_pool" "workers" {
     boot_volume_size_in_gbs = 50
   }
 }
+#
