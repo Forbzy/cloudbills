@@ -24,3 +24,35 @@ data "oci_containerengine_cluster_kube_config" "oke" {
 data "oci_containerengine_cluster" "oke" {
   cluster_id = oci_containerengine_cluster.oke_cluster.id
 }
+
+resource "oci_containerengine_node_pool" "workers" {
+
+  cluster_id = oci_containerengine_cluster.oke_cluster.id
+
+  compartment_id = var.compartment_ocid
+
+  kubernetes_version = var.kubernetes_version
+
+  name = "${var.cluster_name}-workers"
+
+  node_shape = var.node_shape
+
+  node_config_details {
+
+    size = var.node_count
+
+    placement_configs {
+
+      availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
+
+      subnet_id = var.private_subnet_id
+    }
+  }
+
+  node_shape_config {
+
+    ocpus = 1
+
+    memory_in_gbs = 16
+  }
+}
