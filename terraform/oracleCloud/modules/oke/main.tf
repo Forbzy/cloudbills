@@ -10,7 +10,7 @@ resource "oci_containerengine_cluster" "oke_cluster" {
 
   endpoint_config {
     is_public_ip_enabled = true
-    subnet_id            = var.subnet_id
+    subnet_id            = var.public_subnet_id
   }
 
 }
