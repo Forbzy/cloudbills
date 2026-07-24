@@ -52,7 +52,7 @@ resource "oci_containerengine_node_pool" "workers" {
 
     placement_configs {
 
-      availability_domain = data.oci_identity_availability_domains.ads.availability_domains[1].name
+      availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
 
       subnet_id = var.private_subnet_id
     }
@@ -66,7 +66,7 @@ resource "oci_containerengine_node_pool" "workers" {
   }
 
   node_source_details {
-    image_id                = "ocid1.image.oc1.uk-london-1.aaaaaaaapvjyn2rgfj4lazpozjxufnu2obvvp2rfrommlnspa35wrlnxrnyq"
+    image_id                = "ocid1.image.oc1.uk-london-1.aaaaaaaaixdnqyiz7ivji5wrninhm4xfsnydkdr6arjkx6osjkn6byhh75ka"
     source_type             = "IMAGE"
     boot_volume_size_in_gbs = 50
   }
