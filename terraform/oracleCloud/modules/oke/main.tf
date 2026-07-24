@@ -29,6 +29,11 @@ data "oci_identity_availability_domains" "ads" {
   compartment_id = var.compartment_ocid
 }
 
+data "oci_containerengine_node_pool_option" "options" {
+  node_pool_option_id = "all"
+  compartment_id      = var.compartment_ocid
+}
+
 resource "oci_containerengine_node_pool" "workers" {
 
   cluster_id = oci_containerengine_cluster.oke_cluster.id
@@ -58,5 +63,11 @@ resource "oci_containerengine_node_pool" "workers" {
     ocpus = 1
 
     memory_in_gbs = 16
+  }
+
+  node_source_details {
+    image_id                = data.oci_containerengine_node_pool_option.options.sources[0].image_id
+    source_type             = "IMAGE"
+    boot_volume_size_in_gbs = 50
   }
 }
