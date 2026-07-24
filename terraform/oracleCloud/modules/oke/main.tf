@@ -34,6 +34,14 @@ data "oci_containerengine_node_pool_option" "options" {
   compartment_id      = var.compartment_ocid
 }
 
+locals {
+  oke_image_id = [
+    for source in data.oci_containerengine_node_pool_option.options.sources :
+    source.image_id
+    if can(regex("Oracle-Linux-9.7-2026.*OKE-${var.kubernetes_version}", source.source_name))
+  ][0]
+}
+
 resource "oci_containerengine_node_pool" "workers" {
 
   cluster_id = oci_containerengine_cluster.oke_cluster.id
@@ -66,7 +74,7 @@ resource "oci_containerengine_node_pool" "workers" {
   }
 
   node_source_details {
-    image_id                = data.oci_containerengine_node_pool_option.options.sources[0].image_id
+    image_id                = local.oke_image_id
     source_type             = "IMAGE"
     boot_volume_size_in_gbs = 50
   }
