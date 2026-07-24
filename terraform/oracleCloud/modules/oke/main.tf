@@ -62,7 +62,7 @@ resource "oci_containerengine_node_pool" "workers" {
 
     ocpus = 1
 
-    memory_in_gbs = 16
+    memory_in_gbs = 12
   }
 
   node_source_details {
@@ -71,4 +71,3 @@ resource "oci_containerengine_node_pool" "workers" {
     boot_volume_size_in_gbs = 50
   }
 }
-#
